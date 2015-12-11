@@ -1,17 +1,14 @@
-angular.module('alurapic').controller('FotosController',function($scope){
+angular.module('alurapic').controller('FotosController',function($http, $scope){
 
-	$scope.fotos = [
-		{
-			titulo: 'Leão 1',
-			url: 'img/leao.jpg'
-		},
-		{
-			titulo: 'Leão 2',
-			url: 'img/leao.jpg'
-		},
-		{
-			titulo: 'Leão 3',
-			url: 'img/leao.jpg'
-		}
-	];
+	$scope.fotos = [];
+
+	var promise = $http.get('v1/fotos');
+	promise.then(function(retorno){
+
+		$scope.fotos = retorno.data;
+
+	}).catch(function(error){
+		console.log(error);
+	});
+
 });
